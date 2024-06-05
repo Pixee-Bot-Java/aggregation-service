@@ -16,6 +16,7 @@
 
 package com.google.aggregate.shared;
 
+import io.github.pixee.security.BoundedLineReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +38,7 @@ public final class LicenseUtil {
       BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
       List<DependencyMetadata> dependencies = new ArrayList<>();
       String inputLine;
-      while ((inputLine = bufferedReader.readLine()) != null) {
+      while ((inputLine = BoundedLineReader.readLine(bufferedReader, 5_000_000)) != null) {
         String[] values = inputLine.split(",");
         DependencyMetadata dep =
             DependencyMetadata.create(values[0], values[1], values[3], values[2]);
@@ -67,7 +68,7 @@ public final class LicenseUtil {
     InputStream inputStream = LicenseUtil.class.getResourceAsStream(resourceName);
     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
     String inputLine;
-    while ((inputLine = bufferedReader.readLine()) != null) {
+    while ((inputLine = BoundedLineReader.readLine(bufferedReader, 5_000_000)) != null) {
       System.out.println(inputLine);
     }
     System.out.println(String.format("               ###### Done ######\n\n"));
