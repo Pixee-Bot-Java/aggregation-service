@@ -33,6 +33,7 @@ import io.opentelemetry.sdk.trace.SdkTracerProvider;
 import io.opentelemetry.sdk.trace.export.BatchSpanProcessor;
 import io.opentelemetry.sdk.trace.export.SpanExporter;
 import io.opentelemetry.sdk.trace.samplers.Sampler;
+import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.Random;
 
@@ -46,7 +47,7 @@ public final class OtlpGrpcOtelConfigurationModule extends OTelConfigurationModu
       Duration duration,
       Resource resource,
       Clock clock) {
-    Sampler traceSampler = TraceSampler.create(/* sampleRatio= */ 0.001, new Random());
+    Sampler traceSampler = TraceSampler.create(/* sampleRatio= */ 0.001, new SecureRandom());
     SpanExporter spanExporter =
         OtlpGrpcSpanExporter.builder().setEndpoint(collectorEndpoint).build();
     MetricReader metricReader =
