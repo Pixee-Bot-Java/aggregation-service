@@ -20,6 +20,7 @@ import static com.google.aggregate.adtech.worker.model.SharedInfo.PROTECTED_AUDI
 import static com.google.aggregate.adtech.worker.model.SharedInfo.VERSION_0_1;
 import static com.google.aggregate.privacy.budgeting.budgetkeygenerator.protectedaudience.PrivacyBudgetKeyGeneratorModule.ProtectedAudiencePrivacyBudgetKeyGenerators;
 import static com.google.common.truth.Truth.assertThat;
+import java.security.SecureRandom;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -151,7 +152,7 @@ public class ProtectedAudiencePrivacyBudgetKeyGeneratorTest {
 
   @Test
   public void versionedPBKProvider_noOverlapsInVersions() {
-    Random random = new Random();
+    Random random = new SecureRandom();
 
     DoubleStream reportVersionsCorrespondingToPBKV1 =
         random.doubles().map(version -> Math.floor(version * 1000) / 1000).limit(50);
