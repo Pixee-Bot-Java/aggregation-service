@@ -18,6 +18,7 @@ package com.google.aggregate.privacy.budgeting.budgetkeygenerator;
 import static com.google.aggregate.adtech.worker.model.SharedInfo.SHARED_STORAGE_API;
 import static com.google.aggregate.privacy.budgeting.budgetkeygenerator.sharedstorage.PrivacyBudgetKeyGeneratorModule.SharedStoragePrivacyBudgetKeyGenerators;
 import static com.google.common.truth.Truth.assertThat;
+import java.security.SecureRandom;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -161,7 +162,7 @@ public class SharedStoragePrivacyBudgetKeyGeneratorTest {
 
   @Test
   public void versionedPBKProvider_noOverlapsInVersions() {
-    Random random = new Random();
+    Random random = new SecureRandom();
 
     DoubleStream reportVersionsCorrespondingToPBKV1 =
         random.doubles().map(version -> Math.floor(version * 1000) / 1000).limit(50);

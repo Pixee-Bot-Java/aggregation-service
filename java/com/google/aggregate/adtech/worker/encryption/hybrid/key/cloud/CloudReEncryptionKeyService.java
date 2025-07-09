@@ -35,6 +35,7 @@ import com.google.scp.shared.api.util.HttpClientWrapper;
 import com.google.scp.shared.util.PublicKeyConversionUtil;
 import java.net.URI;
 import java.security.GeneralSecurityException;
+import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
@@ -59,7 +60,7 @@ public final class CloudReEncryptionKeyService implements ReEncryptionKeyService
           .build();
   private static final int MAX_CACHE_SIZE = 5;
   private static final long CACHE_ENTRY_TTL_SEC = 3600;
-  private static final Random RANDOM = new Random();
+  private static final Random RANDOM = new SecureRandom();
   private final HttpClientWrapper httpClient;
   private final LoadingCache<String, ImmutableList<EncodedPublicKey>> encryptionKeysCache =
       CacheBuilder.newBuilder()
